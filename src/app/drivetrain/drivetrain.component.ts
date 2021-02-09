@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DrivetrainComponent implements OnInit {
 
-  left: number;
-  right: number;
+  left = 0;
+  right = 0;
 
   constructor() {
   }
