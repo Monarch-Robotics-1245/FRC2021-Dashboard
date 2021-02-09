@@ -22,7 +22,9 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "src/assets/js/networktables.js"
+            ],
             "customWebpackConfig": {
               "path": "./angular.webpack.js"
             }
