@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 declare var NetworkTables: any;
-declare var ipc: any;
+// declare var ipc: any;
+// import '@frc-web-components/frc-web-components';
 // import * as networkTables from '../../networktables.js';
 
 @Component({
@@ -17,6 +18,15 @@ export class AppComponent {
     console.log(state);
   }
 
+  ntLoaded() {
+    console.log(NetworkTables)
+    NetworkTables.addGlobalListener(function(key, value, isNew) {
+      // do something with the values as they change
+    }, true);
+
+    NetworkTables.putValue('/networktablesLoaded', true);
+  }
+
   // newListener(key,value){
   //   console.log(key);
   //   console.log(value);
@@ -25,8 +35,8 @@ export class AppComponent {
 
   constructor(){
     this.rotation = 90;
-    console.log(NetworkTables);
-    NetworkTables.addRobotConnectionListener(this.onRobotConnection, false);
-    ipc.send('connect', "roborio-1245-frc.local");
+    // console.log(NetworkTables);
+    // NetworkTables.addRobotConnectionListener(this.onRobotConnection, false);
+    // ipc.send('connect', "roborio-1245-frc.local");
   }
 }

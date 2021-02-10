@@ -23,7 +23,8 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "src/assets/js/networktables.js"
+//              "src/assets/js/networktables.js",
+              "src/assets/js/frc-web-components.min.js",
             ],
             "customWebpackConfig": {
               "path": "./angular.webpack.js"

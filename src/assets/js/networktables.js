@@ -12,7 +12,7 @@ var NetworkTables =
             keys[mesg.key] = { val: mesg.val, valType: mesg.valType, id: mesg.id, flags: mesg.flags, new: true };
             globalListeners.map(e => e(mesg.key, mesg.val, true));
             if (globalListeners.length > 0)
-                keys[mesg.key].new = false;
+                keys[mesg.key].new
             if (mesg.key in keyListeners) {
                 keyListeners[mesg.key].map(e => e(mesg.key, mesg.val, true));
                 keys[mesg.key].new = false;
