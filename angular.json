@@ -53,7 +53,8 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "src/assets/frc-web-components.min.js"
+              "src/assets/frc-web-components.min.js",
+              "src/assets/networktables.js"
             ]
           },
           "configurations": {
