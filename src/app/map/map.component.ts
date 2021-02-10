@@ -58,7 +58,7 @@ export class MapComponent{
     let y = (1 -(this.y - this.minY)/yRange) * this.fieldHeight - 92.1;
     return 'top: '+y.toString()+'px; '
       +'left:'+x.toString()+'px;'
-      +'transform: rotate('+(this.rotation - 90).toString()+"deg);";
+      +'transform: rotate('+(-this.rotation - 90).toString()+"deg);";
   }
 
 }

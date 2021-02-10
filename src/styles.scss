@@ -1,13 +1,26 @@
+$primary: #ffd200;
+@import '../node_modules/bulma/sass/utilities/_all.sass';
+@import '../node_modules/bulma/sass/base/_all.sass';
+@import '../node_modules/bulma/sass/elements/button.sass';
+
 @font-face {
   font-family: 'Pirulen';
   src: url('assets/pirulen.ttf');
 }
 body {
-  background-color:#111;
+  background-color:#000;
   //background-image: url("assets/background.png");
   background-repeat: no-repeat;
   background-size: contain;
   font-family: 'Pirulen', Roboto, sans-serif;
   background-position: center;
   background-attachment: fixed;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  padding: 5px;
+  background-color:#000;
 }

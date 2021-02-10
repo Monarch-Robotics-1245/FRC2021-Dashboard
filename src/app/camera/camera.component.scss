@@ -1,10 +1,15 @@
 #camera-holder{
   padding-top: 75%;
   width: 100%;
-  //height: calc(20vw * 0.75);
   overflow: hidden;
   background-color: #222;
   background-image: url('http://wpilibpi.local:1183/?action=stream');
   background-repeat: no-repeat;
   background-size: contain;
+  margin-bottom: 10px;
+}
+
+button{
+  padding: 0 10px 0 10px;
+  height: 2em;
 }
