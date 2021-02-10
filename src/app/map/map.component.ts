@@ -13,10 +13,10 @@ export class MapComponent{
   rotation: number;
   x: number;
   y: number;
-  minX = -0.5;
-  maxX = 8.5;
-  minY = -2;
-  maxY = 2;
+  minX = -1.0;
+  maxX = 9;
+  minY = -3;
+  maxY = 3;
   fieldHeight = 10;
   fieldWidth = 10;
 
@@ -24,8 +24,8 @@ export class MapComponent{
     this.rotation = 0;
     this.x = 0;
     this.y = 0;
-    this.fieldHeight = 100;
-    this.fieldWidth = 100;
+    this.fieldHeight = 10;
+    this.fieldWidth = 10;
     setInterval( () => {
       this.updateField();
     },50)
