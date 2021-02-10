@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { CameraComponent } from './camera/camera.component';
 import {FormsModule} from "@angular/forms";
 import { MapComponent } from './map/map.component';
+import { MisctablesComponent } from './misctables/misctables.component';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { MapComponent } from './map/map.component';
     AppComponent,
     CameraComponent,
     MapComponent,
+    MisctablesComponent,
   ],
   imports: [
       BrowserModule,

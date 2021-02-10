@@ -30,15 +30,12 @@ export class MapComponent{
       this.updateField();
     },50)
     NetworkTables.addKeyListener("/Position/r_path",(key,value) => {
-      console.log(key, value);
       this.rotation = value;
     }, true);
     NetworkTables.addKeyListener("/Position/x_path",(key,value) => {
-      console.log(key, value);
       this.x = value;
     }, true);
     NetworkTables.addKeyListener("/Position/y_path",(key,value) => {
-      console.log(key, value);
       this.y = value;
     }, true);
   }

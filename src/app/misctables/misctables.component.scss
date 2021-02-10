@@ -1,0 +1,36 @@
+h3{
+  word-break: break-all;
+}
+button{
+  padding: 0 10px 0 10px;
+  height: 2em;
+}
+
+a.dropdown-item.is-active{
+  width: inherit;
+  background-color: #ffd200;
+  color: black;
+}
+
+.dropdown-content{
+  background-color: #222222;
+}
+
+.dropdown-menu{
+  width: 100%;
+  min-width: 100%;
+}
+
+.dropdown-item{
+  color: white;
+}
+
+.dropdown-item:hover{
+  width: inherit;
+  background-color: #444444;
+  color: white;
+}
+
+.title{
+  font-size: 23px;
+}

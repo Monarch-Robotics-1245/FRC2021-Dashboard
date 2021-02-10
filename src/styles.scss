@@ -1,7 +1,9 @@
 $primary: #ffd200;
+$family-primary: "Pirulen";
 @import '../node_modules/bulma/sass/utilities/_all.sass';
 @import '../node_modules/bulma/sass/base/_all.sass';
 @import '../node_modules/bulma/sass/elements/button.sass';
+@import "../node_modules/bulma/sass/components/dropdown.sass";
 
 @font-face {
   font-family: 'Pirulen';
@@ -9,7 +11,7 @@ $primary: #ffd200;
 }
 body {
   background-color:#000;
-  //background-image: url("assets/background.png");
+  background-image: url("assets/background.png");
   background-repeat: no-repeat;
   background-size: contain;
   font-family: 'Pirulen', Roboto, sans-serif;

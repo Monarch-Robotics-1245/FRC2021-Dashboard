@@ -1,0 +1,16 @@
+<span>Driving with:<br> {{driveCmd}}</span><br>
+<span class="title">Auto: </span>
+<div class = "dropdown" #dropdown>
+  <div class = "dropdown-trigger">
+    <button class = "button is-primary" aria-haspopup = "true" aria-controls = "dropdown-menu">
+      <span>{{selectedAutoMode == -1 ? "None" : autoModes[selectedAutoMode] || "None"}}</span>
+    </button>
+  </div>
+  <div class = "dropdown-menu" id = "dropdown-menu" role = "menu">
+    <div class = "dropdown-content">
+      <a (click)="selectAutoMode(-1)" class="dropdown-item {{selectedAutoMode == -1 ? 'is-active' : ''}}">None</a>
+      <a (click)="selectAutoMode(i)" class="dropdown-item {{selectedAutoMode == i ? 'is-active' : ''}}" *ngFor="let mode of autoModes; let i = index">{{mode}}</a>
+
+    </div>
+  </div>
+</div>
