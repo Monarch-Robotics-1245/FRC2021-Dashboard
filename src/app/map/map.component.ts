@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 declare const NetworkTables: any;
 
@@ -7,20 +7,57 @@ declare const NetworkTables: any;
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit {
+export class MapComponent{
+  @ViewChild("field") field: ElementRef;
 
   rotation: number;
+  x: number;
+  y: number;
+  minX = -0.5;
+  maxX = 8.5;
+  minY = -2;
+  maxY = 2;
+  fieldHeight: 10;
+  fieldWidth: 10;
 
   constructor() {
-    this.rotation = 90;
+    this.rotation = 0;
+    this.x = 0;
+    this.y = 0;
     NetworkTables.addKeyListener("/Position/r_path",(key,value) => {
       console.log(key, value);
       this.rotation = value;
-      // do something with the values as they change
+      this.updateField();
+    }, true);
+    NetworkTables.addKeyListener("/Position/x_path",(key,value) => {
+      console.log(key, value);
+      this.x = value;
+      this.updateField();
+    }, true);
+    NetworkTables.addKeyListener("/Position/y_path",(key,value) => {
+      console.log(key, value);
+      this.y = value;
+      this.updateField();
     }, true);
   }
 
-  ngOnInit(): void {
+  updateField(){
+    if(this.field==null){
+      return;
+    }
+    this.fieldWidth = this.field.nativeElement.offsetWidth;
+    this.fieldHeight = this.field.nativeElement.offsetHeight;
+  }
+
+  getStyle(){
+    let xRange = this.maxX - this.minX;
+    let yRange = this.maxY - this.minY;
+    let x = (this.x - this.minX)/xRange * this.fieldWidth - 75;
+    let y = (1 -(this.y - this.minY)/yRange) * this.fieldHeight - 92.1;
+
+    return 'top: '+y.toString()+'px; '
+      +'left:'+x.toString()+'px;'
+      +'transform: rotate('+(this.rotation - 90).toString()+"deg);";
   }
 
 }

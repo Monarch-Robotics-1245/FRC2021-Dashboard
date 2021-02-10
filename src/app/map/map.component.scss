@@ -1,5 +1,7 @@
 .bot{
-  width: 200px;
+  width: 150px;
+  //height: 300px;
+  position: absolute;
 }
 .svgpath{
   fill:none;
@@ -8,4 +10,11 @@
   stroke-linecap:round;
   stroke-linejoin:round;
   stroke-miterlimit:10;
+}
+
+main{
+  border: 3px solid black;
+  width: 100%;
+  position: relative;
+  height: 500px;
 }
