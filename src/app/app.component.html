@@ -1,9 +1,15 @@
-<frc-dashboard>
-  <app-camera></app-camera>
+<frc-dashboard class="container">
+  <div class="placeholder">
+    <p>Room for other stuff</p>
+  </div>
+  <frc-gauge source-key="/LiveWindow/Ungrouped/Encoder[0]/Speed" min="0" max="55"></frc-gauge>
   <frc-differential-drivebase source-key="/LiveWindow/Ungrouped/DifferentialDrive[1]"></frc-differential-drivebase>
   <frc-gyro source-key="/LiveWindow/Ungrouped/ADXRS450_Gyro[0]/Value"></frc-gyro>
   <frc-pdp source-key="/LiveWindow/Ungrouped/PowerDistributionPanel[0]"></frc-pdp>
-  <frc-gauge source-key="/LiveWindow/Ungrouped/Encoder[0]/Speed" min="0" max="55"></frc-gauge>
-  <app-map></app-map>
+  <div class="camera">
+    <app-camera></app-camera>
+    <div>Room for camera info</div>
+  </div>
+  <app-map class="map"></app-map>
 </frc-dashboard>
 <!--<h1>ƒA</h1>-->
