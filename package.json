@@ -1,15 +1,21 @@
 {
+  "build": {
+    "appId": "com.monarchrobotics.dashboard",
+    "win": {
+      "target": "nsis",
+      "icon": "build/dist/dashboard2021/favicon.cio"
+    }
+  },
   "name": "dashboard2021",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "build": "ng build --prod --base-href ./",
+    "electron": "electron .",
   },
   "private": true,
+  "main": "main.js",
   "dependencies": {
     "@angular/animations": "~11.1.0",
     "@angular/common": "~11.1.0",
@@ -24,6 +30,8 @@
     "zone.js": "~0.11.3"
   },
   "devDependencies": {
+    "electron": "^11.2.3",
+    "electron-builder": "^22.9.1",
     "@angular-devkit/build-angular": "~0.1101.0",
     "@angular/cli": "~11.1.0",
     "@angular/compiler-cli": "~11.1.0",
