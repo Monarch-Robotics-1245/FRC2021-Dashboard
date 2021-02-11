@@ -5,6 +5,7 @@ button{
   padding: 0 0.5vh 0 0.5vh;
   height: 5vh;
   font-size: 2vh;
+  margin-right: 0.5vw;
 }
 
 a.dropdown-item.is-active{
@@ -39,4 +40,12 @@ a.dropdown-item.is-active{
 
 .drive-cmd{
   font-size: 2vh;
+}
+
+frc-source-tree{
+  width: 80%;
+  background-color: #222222;
+  padding: 2vw;
+  border-radius: 1vw;
+
 }

@@ -8,6 +8,10 @@ declare const NetworkTables: any;
 })
 export class MisctablesComponent implements AfterViewInit {
 
+  toggleNetworkTables(){
+    this.ntModal.nativeElement.classList.toggle('is-active');
+  }
+
   changeIP(){
     let newIp = window.prompt("Enter the Network tables IP and port",localStorage.getItem("ntserver") || "localhost:8888");
     if(newIp==null || newIp == ""){
@@ -20,18 +24,22 @@ export class MisctablesComponent implements AfterViewInit {
   }
 
   @ViewChild("dropdown") dropdown: ElementRef;
+  @ViewChild("modal") ntModal: ElementRef;
 
   driveCmd: string;
 
   autoModes = ["Galactic", "Barrel", "Slalom", "Bounce"];
 
   selectedAutoMode;
+  connected: boolean;
 
   constructor() {
     this.selectedAutoMode = -1;
     this.driveCmd = "0";
+    NetworkTables.addWsConnectionListener((connected) =>{
+      this.connected = connected;
+    }, true);
     NetworkTables.addKeyListener("/LiveWindow/Drivetrain/.command",(key,value) => {
-      console.log()
       this.driveCmd = value;
     }, true);
     NetworkTables.addKeyListener("/Preferences/AutoMode",(key,value) => {

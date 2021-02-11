@@ -1,6 +1,11 @@
+<span class="title">{{connected ? "Connected" : "Disconnected"}}</span>
 <button (click)="changeIP()" class="button is-primary">
   Change IP
+</button>
+<button (click)="toggleNetworkTables()" class="button is-primary">
+  Show NT
 </button><br>
+<br>
 <span class="drive-cmd">Driving with:<br> {{driveCmd}}</span><br>
 <span class="title">Auto: </span>
 <div class = "dropdown" #dropdown>
@@ -16,4 +21,11 @@
 
     </div>
   </div>
+</div>
+<div class="modal" #modal>
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <frc-source-tree source-key=""></frc-source-tree>
+  </div>
+  <button class="modal-close is-large" aria-label="close"  (click)="toggleNetworkTables()"></button>
 </div>
