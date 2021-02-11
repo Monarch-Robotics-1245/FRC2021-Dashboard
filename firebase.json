@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "site": "dashboard2021",
+    "public": "dist/dashboard2021",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

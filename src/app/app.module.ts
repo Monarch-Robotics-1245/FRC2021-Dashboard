@@ -7,6 +7,8 @@ import {FormsModule} from "@angular/forms";
 import { MapComponent } from './map/map.component';
 import { MisctablesComponent } from './misctables/misctables.component';
 import { PdpComponent } from './pdp/pdp.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -19,7 +21,8 @@ import { PdpComponent } from './pdp/pdp.component';
   ],
   imports: [
       BrowserModule,
-      FormsModule
+      FormsModule,
+      ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent],
