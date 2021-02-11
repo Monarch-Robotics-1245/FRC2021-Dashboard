@@ -8,6 +8,17 @@ declare const NetworkTables: any;
 })
 export class MisctablesComponent implements AfterViewInit {
 
+  changeIP(){
+    let newIp = window.prompt("Enter the Network tables IP and port",localStorage.getItem("ntserver") || "localhost:8888");
+    if(newIp==null || newIp == ""){
+      return;
+    }
+    else{
+      localStorage.setItem("ntserver",newIp);
+      window.location.reload();
+    }
+  }
+
   @ViewChild("dropdown") dropdown: ElementRef;
 
   driveCmd: string;

@@ -1,5 +1,5 @@
 .bot{
-  width: 150px;
+  width: min(10vw,15vh);
   //height: 300px;
   position: absolute;
 }
@@ -20,5 +20,6 @@ main{
 }
 
 h5{
-  margin: 5px;
+  margin: 1vh;
+  font-size: 3vh;
 }
