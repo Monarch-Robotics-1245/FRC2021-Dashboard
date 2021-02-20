@@ -18,22 +18,100 @@ export class MapComponent{
   maxX = 9;
   minY = -3;
   maxY = 3;
+
   fieldHeight: number;
   fieldWidth: number;
   botHeight: number;
   botWidth: number;
 
+  usingIntake: boolean;
+
+  barrelField: Field = {
+    xOffset: 1.0,
+    yOffset: 0.0,
+    points: [
+      this.pointFromCoord("D5"), this.pointFromCoord("D10"), this.pointFromCoord("B8"),
+    ],
+    boxes: [
+      {p1: this.pointFromCoord("B0"), p2: this.pointFromCoord("D2")}
+    ]
+  };
+  slalomField: Field = {
+    xOffset: 0.8,
+    yOffset: -60 * 0.0254,
+    boxes: [
+      {p1: this.pointFromCoord("B0"), p2: this.pointFromCoord("D2"), color: "#ba000d"},
+      {p1: this.pointFromCoord("D0"), p2: this.pointFromCoord("F2"), color: "#08af23"}
+    ],
+    points: [
+      this.pointFromCoord("D4"),
+      this.pointFromCoord("D5"),
+      this.pointFromCoord("D6"),
+      this.pointFromCoord("D7"),
+      this.pointFromCoord("D8"),
+      this.pointFromCoord("D10"),
+    ]
+  }
+  bounceField: Field = {
+    xOffset: 1.0,
+    yOffset: 0.0,
+    boxes: [
+      {p1: this.pointFromCoord("B0"), p2: this.pointFromCoord("D2"), color: "#08af23"},
+      {p1: this.pointFromCoord("B10"), p2: this.pointFromCoord("D12"), color: "#ba000d"},
+    ],
+    points: [
+      this.pointFromCoord("D3"), this.pointFromCoord("E3"), this.pointFromCoord("B4"),
+      this.pointFromCoord("B5"), this.pointFromCoord("D5"), this.pointFromCoord("B7"),
+      this.pointFromCoord("B8"), this.pointFromCoord("D7"), this.pointFromCoord("D8"),
+      this.pointFromCoord("A3", "#00ff00"), this.pointFromCoord("A6", "#00ff00"), this.pointFromCoord("A9", "#00ff00"),
+    ]
+  };
+  galacticAField: Field = {
+    xOffset: 0.4,
+    yOffset: 0.0,
+    boxes: [
+      {p1: this.pointFromCoord("@0"), p2: this.pointFromCoord("F1"), color: "#08af23"},
+      {p1: this.pointFromCoord("@11"), p2: this.pointFromCoord("F12"), color: "#ba000d"},
+    ],
+    points: [
+      this.pointFromCoord("C3", "#ff0000"), this.pointFromCoord("D5", "#ff0000"), this.pointFromCoord("A6", "#ff0000"),
+      this.pointFromCoord("E6", "#03a9f4"), this.pointFromCoord("B7", "#03a9f4"), this.pointFromCoord("C9", "#03a9f4"),
+    ]
+  };
+  galacticBField: Field = {
+    xOffset: 0.4,
+    yOffset: 0.0,
+    boxes: [
+      {p1: this.pointFromCoord("@0"), p2: this.pointFromCoord("F1"), color: "#08af23"},
+      {p1: this.pointFromCoord("A11"), p2: this.pointFromCoord("F12"), color: "#ba000d"},
+    ],
+    points: [
+      this.pointFromCoord("B3", "#ff0000"), this.pointFromCoord("D5", "#ff0000"), this.pointFromCoord("B7", "#ff0000"),
+      this.pointFromCoord("D6", "#03a9f4"), this.pointFromCoord("B8", "#03a9f4"), this.pointFromCoord("D10", "#03a9f4"),
+    ]
+  };
+  emtpyField: Field = {
+    yOffset: 0,
+    xOffset: 0,
+    boxes: [],
+    points: [],
+  }
+
+  currentField: Field;
+
   constructor() {
     this.rotation = 0;
     this.x = 0;
     this.y = 0;
+    this.usingIntake = false;
     this.fieldHeight = 10;
     this.fieldWidth = 10;
     this.botHeight = 10;
     this.botWidth = 10;
+    this.currentField = this.galacticAField;
     setInterval( () => {
       this.updateField();
-    },50)
+    },10)
     NetworkTables.addKeyListener("/Position/r_path",(key,value) => {
       this.rotation = value;
     }, true);
@@ -42,6 +120,29 @@ export class MapComponent{
     }, true);
     NetworkTables.addKeyListener("/Position/y_path",(key,value) => {
       this.y = value;
+    }, true);
+    NetworkTables.addKeyListener("/Other/Intake",(key,value) => {
+      this.usingIntake = value;
+    }, true);
+    NetworkTables.addKeyListener("/Preferences/AutoMode",(key,value) => {
+      console.log(key,value);
+      switch (value){
+        case 0:
+          this.currentField = this.galacticBField;
+          break;
+        case 1:
+          this.currentField = this.barrelField;
+          break;
+        case 2:
+          this.currentField = this.slalomField;
+          break;
+        case 3:
+          this.currentField = this.bounceField;
+          break;
+        default:
+          this.currentField = this.emtpyField;
+          break;
+      }
     }, true);
   }
 
@@ -71,4 +172,65 @@ export class MapComponent{
       +'transform: rotate('+(-this.rotation - 90).toString()+"deg);";
   }
 
+  getPointStyle(p:Point){
+    let radius = 15;
+    let xRange = this.maxX - this.minX;
+    let yRange = this.maxY - this.minY;
+    let x = (p.x - this.currentField.xOffset - this.minX)/xRange * this.fieldWidth - radius/2;
+    let y = (1 -(p.y -this.currentField.yOffset - this.minY)/yRange) * this.fieldHeight - radius/2;
+    return 'top: '+y.toString()+'px; '
+      +'left:'+x.toString()+'px;'
+      +'background-color:'+(p.color ?? "#ffd200")+";";
+  }
+
+  getBoxStyle(b:Box){
+    let xRange = this.maxX - this.minX;
+    let yRange = this.maxY - this.minY;
+    let x1 = (b.p1.x - this.currentField.xOffset - this.minX)/xRange * this.fieldWidth;
+    let y1 = (1 -(b.p1.y - this.currentField.yOffset - this.minY)/yRange) * this.fieldHeight;
+    let x2 = (b.p2.x - this.currentField.xOffset - this.minX)/xRange * this.fieldWidth;
+    let y2 = (1 -(b.p2.y - this.currentField.yOffset - this.minY)/yRange) * this.fieldHeight;
+    let top = Math.min(y1,y2);
+    let left = Math.min(x1,x2);
+    let height = Math.abs(y1 - y2);
+    let width = Math.abs(x1 - x2);
+    return 'top: '+top.toString()+'px; '
+      +'left:'+left.toString()+'px;'
+      +'width:'+width.toString()+'px;'
+      +'height:'+height.toString()+'px;'
+      +'border-color:'+(b.color ?? "#ffd200")+";";
+  }
+
+  pointFromCoord(c: string, color?: string): Point{
+    c = c.toUpperCase();
+    let col = (c.charCodeAt(0) - 67) * -1;
+    let row = Number(c.substring(1));
+    let xPos = row * 30 * 0.0254;
+    let yPos = col * 30 * 0.0254;
+    return {
+      x: xPos,
+      y: yPos,
+      color: color,
+    }
+  }
+
+}
+
+export interface Point{
+  x: number;
+  y: number;
+  color?: string;
+}
+
+export interface Box{
+  p1: Point;
+  p2: Point;
+  color?: string;
+}
+
+export interface Field{
+  xOffset: number;
+  yOffset: number;
+  points: Point[];
+  boxes: Box[];
 }
