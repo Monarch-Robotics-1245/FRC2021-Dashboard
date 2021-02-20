@@ -83,7 +83,7 @@ export class MapComponent{
     yOffset: 0.0,
     boxes: [
       {p1: this.pointFromCoord("@0"), p2: this.pointFromCoord("F1"), color: "#08af23"},
-      {p1: this.pointFromCoord("A11"), p2: this.pointFromCoord("F12"), color: "#ba000d"},
+      {p1: this.pointFromCoord("@11"), p2: this.pointFromCoord("F12"), color: "#ba000d"},
     ],
     points: [
       this.pointFromCoord("B3", "#ff0000"), this.pointFromCoord("D5", "#ff0000"), this.pointFromCoord("B7", "#ff0000"),
@@ -128,7 +128,7 @@ export class MapComponent{
       console.log(key,value);
       switch (value){
         case 0:
-          this.currentField = this.galacticBField;
+          this.currentField = this.galacticAField;
           break;
         case 1:
           this.currentField = this.barrelField;
@@ -140,7 +140,7 @@ export class MapComponent{
           this.currentField = this.bounceField;
           break;
         default:
-          this.currentField = this.emtpyField;
+          this.currentField = this.galacticBField;
           break;
       }
     }, true);
