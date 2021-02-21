@@ -99,6 +99,10 @@ export class MapComponent{
 
   currentField: Field;
 
+  pathPoints: PathPoint[] = [];
+  uploadedFile: File = null;
+  pathIndex = 0;
+
   constructor() {
     this.rotation = 0;
     this.x = 0;
@@ -109,6 +113,7 @@ export class MapComponent{
     this.botHeight = 10;
     this.botWidth = 10;
     this.currentField = this.galacticAField;
+    this.pathIndex = 0;
     setInterval( () => {
       this.updateField();
     },10)
@@ -123,6 +128,9 @@ export class MapComponent{
     }, true);
     NetworkTables.addKeyListener("/Other/Intake",(key,value) => {
       this.usingIntake = value;
+    }, true);
+    NetworkTables.addKeyListener("/PathFollowing/index",(key,value) => {
+      this.pathIndex = value;
     }, true);
     NetworkTables.addKeyListener("/Preferences/AutoMode",(key,value) => {
       console.log(key,value);
@@ -144,6 +152,29 @@ export class MapComponent{
           break;
       }
     }, true);
+  }
+
+  async handleFileInput(files: FileList) {
+    this.pathPoints = [];
+    this.uploadedFile = files.item(0);
+    let text = await this.uploadedFile.text();
+    let lines = text.split("\n")
+    for(let line of lines){
+      let vals = line.split(",");
+      if(vals.length == 1){
+        continue;
+      }
+      this.pathPoints.push({
+        i: lines.indexOf(line),
+        x: Number(vals[0]),
+        y: Number(vals[1]),
+        scalar: Number(vals[2]),
+        intake: Number(vals[3]) == 1,
+        backwards: Number(vals[4]) == 1
+      });
+    }
+    this.pathIndex = 0;
+    this.updateField();
   }
 
   updateField(){
@@ -183,6 +214,13 @@ export class MapComponent{
       +'background-color:'+(p.color ?? "#ffd200")+";";
   }
 
+  getPathPoints(): PathPoint[]{
+    if(this.pathIndex==0){
+      return this.pathPoints;
+    }
+    return this.pathPoints.slice(this.pathIndex, this.pathIndex + Math.floor(this.pathPoints.length / 7));
+  }
+
   getBoxStyle(b:Box){
     let xRange = this.maxX - this.minX;
     let yRange = this.maxY - this.minY;
@@ -199,6 +237,18 @@ export class MapComponent{
       +'width:'+width.toString()+'px;'
       +'height:'+height.toString()+'px;'
       +'border-color:'+(b.color ?? "#ffd200")+";";
+  }
+
+  getPathPointStyle(p: PathPoint){
+    let xRange = this.maxX - this.minX;
+    let yRange = this.maxY - this.minY;
+    let x = (p.x - this.minX)/xRange * this.fieldWidth;
+    let y = (1 -(p.y - this.minY)/yRange) * this.fieldHeight;
+    let size = p.scalar * 2;
+
+    return 'top: '+(y - size/2).toString()+'px; '
+      +'left:'+(x-size/2).toString()+'px;'
+      +'width:'+size.toString()+"px;height:"+size.toString()+"px;";
   }
 
   pointFromCoord(c: string, color?: string): Point{
@@ -233,4 +283,13 @@ export interface Field{
   yOffset: number;
   points: Point[];
   boxes: Box[];
+}
+
+export interface PathPoint{
+  i: number;
+  x: number;
+  y: number;
+  scalar: number;
+  intake: boolean;
+  backwards: boolean;
 }

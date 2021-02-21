@@ -25,7 +25,8 @@ main{
 }
 
 h5{
-  margin: 1vh;
+  margin-top: 1vh;
+  margin-right: 1vh;
   font-size: 3vh;
 }
 
@@ -43,4 +44,27 @@ h5{
   -webkit-box-sizing: border-box;
   position: absolute;
   border: 3px solid #ffd200;
+}
+
+.path-point{
+  border-radius: 100px;
+  background-color: #ba000d;
+  border: 1px solid #ba000d;
+  position: absolute;
+}
+
+label{
+  margin-left: 1vh;
+}
+
+.intake{
+  border: 0.5px solid #ffd200 !important;
+}
+
+.backwards{
+  border: 0.5px solid #0000ff !important;
+}
+
+.intake.backwards{
+  border: 0.5px solid #00ff00 !important;
 }
