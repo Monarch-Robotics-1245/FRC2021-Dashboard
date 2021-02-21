@@ -218,7 +218,7 @@ export class MapComponent{
     if(this.pathIndex==0){
       return this.pathPoints;
     }
-    return this.pathPoints.slice(this.pathIndex, this.pathIndex + Math.floor(this.pathPoints.length / 7));
+    return this.pathPoints.slice(this.pathIndex, this.pathIndex + Math.floor(this.pathPoints.length / 5));
   }
 
   getBoxStyle(b:Box){
