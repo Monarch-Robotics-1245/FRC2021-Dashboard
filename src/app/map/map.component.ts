@@ -90,6 +90,26 @@ export class MapComponent{
       this.pointFromCoord("D6", "#03a9f4"), this.pointFromCoord("B8", "#03a9f4"), this.pointFromCoord("D10", "#03a9f4"),
     ]
   };
+  auto2020Field: Field = {
+    xOffset: 0.0,
+    yOffset: 0.0,
+    boxes: [],
+    points: [
+      {
+        x: 2.728,
+        y: 0.867
+      },
+      {
+        x: 2.728+0.9144,
+        y: 0.867
+      },
+      {
+        x: 2.728+0.9144*2,
+        y: 0.867
+      },
+    ]
+  }
+
   emtpyField: Field = {
     yOffset: 0,
     xOffset: 0,
@@ -148,7 +168,7 @@ export class MapComponent{
           this.currentField = this.bounceField;
           break;
         default:
-          this.currentField = this.galacticBField;
+          this.currentField = this.auto2020Field;
           break;
       }
     }, true);
