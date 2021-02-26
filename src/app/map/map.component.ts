@@ -168,7 +168,7 @@ export class MapComponent{
           this.currentField = this.bounceField;
           break;
         default:
-          this.currentField = this.auto2020Field;
+          this.currentField = this.emtpyField;
           break;
       }
     }, true);
