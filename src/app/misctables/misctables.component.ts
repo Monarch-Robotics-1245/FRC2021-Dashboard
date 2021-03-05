@@ -33,9 +33,12 @@ export class MisctablesComponent implements AfterViewInit {
   selectedAutoMode;
   connected: boolean;
 
+  shooterSpeed: number;
+
   constructor() {
+    this.shooterSpeed = 0;
     this.selectedAutoMode = -1;
-    this.driveCmd = "0";
+    this.driveCmd = "";
     NetworkTables.addWsConnectionListener((connected) =>{
       this.connected = connected;
     }, true);
@@ -44,6 +47,10 @@ export class MisctablesComponent implements AfterViewInit {
     }, true);
     NetworkTables.addKeyListener("/Preferences/AutoMode",(key,value) => {
       this.selectedAutoMode = value;
+    }, true);
+    NetworkTables.addKeyListener("/Vision/Shooter",(key,value) => {
+      console.log("New shoot",value);
+      this.shooterSpeed = value;
     }, true);
   }
 
@@ -56,5 +63,10 @@ export class MisctablesComponent implements AfterViewInit {
       event.stopPropagation();
       this.dropdown.nativeElement.classList.toggle('is-active');
     });
+  }
+
+  changeShooter(val: any){
+    console.log("Changing shoot");
+    NetworkTables.setValue("/Vision/Shooter",Number(val.toString()));
   }
 }

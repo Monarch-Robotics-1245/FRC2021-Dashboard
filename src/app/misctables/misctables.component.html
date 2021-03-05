@@ -22,6 +22,7 @@
     </div>
   </div>
 </div>
+<input class="input is-primary" [(ngModel)]="shooterSpeed" type="number" placeholder="Shooter RPS" (keyup)="changeShooter($event.target.value)" (change)="changeShooter($event.target.value)">
 <div class="modal" #modal>
   <div class="modal-background"></div>
   <div class="modal-content">
